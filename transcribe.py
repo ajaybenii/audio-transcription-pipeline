@@ -24,7 +24,7 @@ def validate_audio(path_arg: str, max_mb: int) -> Path:
 
 
 def transcribe_audio(path: Path, model) -> dict:
-    # faster-whisper returns a generator: inference finishes as it is consumed.
+    # transcribe() returns a segment generator; inference runs while you iterate it.
     segments, info = model.transcribe(str(path), task="transcribe", vad_filter=True)
     rows = []
     for segment in segments:
@@ -57,13 +57,12 @@ def main(argv=None) -> int:
 
     try:
         path = validate_audio(args.audio_path, args.max_mb)
-        # Lazy import: validation and unit tests do not need the heavy model package.
+        # Import here so validation-only tests never load faster-whisper.
         from faster_whisper import WhisperModel
 
         model = WhisperModel(args.model, device="cpu", compute_type="int8")
         result = transcribe_audio(path, model)
     except Exception as exc:
-        # Errors go to stderr; stdout is reserved for successful JSON output.
         print(json.dumps({"error": str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 1
 
