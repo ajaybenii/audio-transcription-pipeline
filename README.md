@@ -60,5 +60,3 @@ After `pip install -r requirements.txt` in a venv:
 - CLI smoke test on locally generated English speech (macOS `say`): valid JSON, `status: completed`, `language: en`, segments with `end >= start`. Synthetic speech only—not an accuracy study across speakers, noise, or languages.
 - Nonexistent path: exit code 1, error JSON on stderr, empty stdout.
 - `faster-whisper` 1.x passes `metadata_errors` to PyAV; PyAV 19 removed it. Pin `av>=18,<19` with `faster-whisper>=1.1,<2` in `requirements.txt`.
-
-Repository: [audio-transcription-pipeline](https://github.com/ajaybenii/audio-transcription-pipeline).
