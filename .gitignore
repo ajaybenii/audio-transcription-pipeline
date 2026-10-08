@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+_demo.aiff
+_demo.wav
+_demo_transcript.json
+_demo_transcribe_stderr.txt
+*.wav
+*.mp3
+transcript.json
+*_transcript.json
